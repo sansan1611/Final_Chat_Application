@@ -97,8 +97,8 @@ public class ChatFrame extends JFrame {
         if (iconStyle == null) {
             iconStyle = doc.addStyle("Icon style", null);
         }
-
-        StyleConstants.setIcon(iconStyle, new ImageIcon(emoji));
+        String emojiPath = emoji.substring(emoji.lastIndexOf("/icon"));
+        StyleConstants.setIcon(iconStyle, new ImageIcon(getClass().getResource(emojiPath)));
 
         // In ra màn hình Emoji
         try {
