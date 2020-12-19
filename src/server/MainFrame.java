@@ -91,13 +91,13 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		JButton start = new JButton("");
-		start.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/rocket.png")));
+		start.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/server/rocket.png")));
 		start.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		
 		JPanel panel = new JPanel();
 		
 		JLabel lblFitIcon = new JLabel("");
-		lblFitIcon.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/speech-bubble.png")));
+		lblFitIcon.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/server/speech-bubble.png")));
 		
 		JLabel lblNewLabel = new JLabel("FIT Chat Server Management System");
 		lblNewLabel.setFont(new Font("Arial Hebrew Scholar", Font.BOLD, 16));
@@ -158,7 +158,7 @@ public class MainFrame extends JFrame {
 
 				start.setEnabled(false);
 				text.setText("Start server successful!");
-				text.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/fireworks.png")));
+				text.setIcon(new ImageIcon(MainFrame.class.getResource("/icon/component/server/fireworks.png")));
 			}
 		});
 	}

@@ -49,7 +49,7 @@ public class HelpGui extends JDialog {
 			txtrIntro.setBackground(SystemColor.info);
 			txtrIntro.setBounds(232, 11, 192, 138);
 			txtrIntro.setWrapStyleWord(true);
-			txtrIntro.setText("If there is any problems, please contact crewmate@space.ship.com");
+			txtrIntro.setText("\n\nIf there is any problems, please contact Fitbest@amazing.chat.com");
 			txtrIntro.setTabSize(4);
 			txtrIntro.setRows(3);
 			txtrIntro.setLineWrap(true);
@@ -57,6 +57,7 @@ public class HelpGui extends JDialog {
 		}
 		{
 			JLabel lblIntroImage = new JLabel("");
+			lblIntroImage.setIcon(new ImageIcon(HelpGui.class.getResource("/icon/component/Server/Help/team.png")));
 //			ImageIcon imageIcon = new ImageIcon(new ImageIcon(HelpGui.class.getResource("/image/crewmate00.png")).getImage().getScaledInstance(90, 100, java.awt.Image.SCALE_SMOOTH));
 //			lblIntroImage.setIcon(imageIcon);
 			lblIntroImage.setBounds(332, 150, 92, 100);
@@ -68,19 +69,20 @@ public class HelpGui extends JDialog {
 		panel.setBounds(0, 0, 222, 261);
 		contentPanel.add(panel);
 		
-		JLabel lblCrewmates = new JLabel("CREWMATEs <3");
+		JLabel lblCrewmates = new JLabel("FIT Chat");
 		lblCrewmates.setBounds(55, 205, 120, 17);
 		lblCrewmates.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewmates.setFont(new Font("OCR A Extended", Font.PLAIN, 16));
 		
-		JLabel lblImage = new JLabel("New label");
+		JLabel lblImage = new JLabel("");
+		lblImage.setIcon(new ImageIcon(HelpGui.class.getResource("/icon/component/Server/Help/lifebuoy.png")));
 		lblImage.setBounds(0, 0, 234, 141);
 //		ImageIcon imageIcon = new ImageIcon(new ImageIcon(HelpGui.class.getResource("/image/crewmates-team.jpg")).getImage().getScaledInstance(241, 141, java.awt.Image.SCALE_SMOOTH));
 //		lblImage.setIcon(imageIcon);
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JLabel lblWeAre = new JLabel("We are..");
-		lblWeAre.setBounds(71, 177, 80, 17);
+		JLabel lblWeAre = new JLabel("Welcome to");
+		lblWeAre.setBounds(49, 176, 126, 17);
 		lblWeAre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWeAre.setFont(new Font("OCR A Extended", Font.PLAIN, 16));
 		panel.setLayout(null);

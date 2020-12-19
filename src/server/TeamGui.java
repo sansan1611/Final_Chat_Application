@@ -40,7 +40,7 @@ public class TeamGui extends JDialog {
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-//		contentPanel.setLayout(null);
+		contentPanel.setLayout(null);
 //		{
 //			ImageIcon imageIcon = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmate.png")).getImage().getScaledInstance(90, 100, java.awt.Image.SCALE_SMOOTH));
 //		}
@@ -50,15 +50,15 @@ public class TeamGui extends JDialog {
 		panel.setBounds(0, 0, 222, 282);
 		contentPanel.add(panel);
 		
-		JLabel lblCrewmates = new JLabel("CREWMATEs <3");
-		lblCrewmates.setBounds(55, 232, 120, 17);
+		JLabel lblCrewmates = new JLabel("DEVELOPMENT TEAM");
+		lblCrewmates.setBounds(6, 236, 194, 17);
 		lblCrewmates.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewmates.setFont(new Font("OCR A Extended", Font.PLAIN, 16));
 		
-		JLabel lblImage = new JLabel("New label");
-		lblImage.setBounds(0, 0, 234, 159);
-//		ImageIcon imageIcon = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmates-team.jpg")).getImage().getScaledInstance(250, 200, java.awt.Image.SCALE_SMOOTH));
-//		lblImage.setIcon(imageIcon);
+		JLabel lblImage = new JLabel("");
+		lblImage.setBounds(0, 6, 234, 184);
+		//ImageIcon imageIcon = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/icon/component/Server/Team/community.png")).getImage().getScaledInstance(250, 200, java.awt.Image.SCALE_SMOOTH));
+		lblImage.setIcon(new ImageIcon(TeamGui.class.getResource("/icon/component/Server/Team/community.png")));
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblWeAre = new JLabel("We are..");
@@ -89,23 +89,21 @@ public class TeamGui extends JDialog {
 		contentPanel.add(lblLamThiThuong);
 		
 		JLabel lblQuynhImage = new JLabel("");
-//		ImageIcon img1 = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmate00.png")).getImage().getScaledInstance(50, 60, java.awt.Image.SCALE_SMOOTH));
-//		lblQuynhImage.setIcon(img1);
+		//ImageIcon img1 = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmate00.png")).getImage().getScaledInstance(50, 60, java.awt.Image.SCALE_SMOOTH));
+		lblQuynhImage.setIcon(new ImageIcon(TeamGui.class.getResource("/icon/component/Server/Team/quynh.png")));
 		lblQuynhImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblQuynhImage.setBounds(304, 11, 50, 56);
 		contentPanel.add(lblQuynhImage);
 		
 		JLabel lblHuongImage = new JLabel("");
-//		ImageIcon img2 = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmate02.png")).getImage().getScaledInstance(50, 60, java.awt.Image.SCALE_SMOOTH));
-//		lblHuongImage.setIcon(img2);
+		lblHuongImage.setIcon(new ImageIcon(TeamGui.class.getResource("/icon/component/Server/Team/huong.png")));
 		lblHuongImage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHuongImage.setBounds(304, 104, 50, 60);
 		contentPanel.add(lblHuongImage);
 		
 		JLabel lblHuyenImage = new JLabel("");
 		lblHuyenImage.setHorizontalAlignment(SwingConstants.CENTER);
-//		ImageIcon img3 = new ImageIcon(new ImageIcon(TeamGui.class.getResource("/image/crewmate03.png")).getImage().getScaledInstance(50, 60, java.awt.Image.SCALE_SMOOTH));
-//		lblHuyenImage.setIcon(img3);
+		lblHuyenImage.setIcon(new ImageIcon(TeamGui.class.getResource("/icon/component/Server/Team/huyen.png")));
 		lblHuyenImage.setBounds(304, 189, 50, 86);
 		contentPanel.add(lblHuyenImage);
 	}

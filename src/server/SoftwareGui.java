@@ -44,12 +44,17 @@ public class SoftwareGui extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblIntroImage = new JLabel("");
+			lblIntroImage.setIcon(new ImageIcon(SoftwareGui.class.getResource("/icon/component/Server/Software/laugh.png")));
+			
+			JLabel lblNewLabel_1 = new JLabel("New label");
+			lblNewLabel_1.setIcon(new ImageIcon(SoftwareGui.class.getResource("/icon/component/Server/Software/laugh.png")));
+			contentPanel.add(lblNewLabel_1);
 //			ImageIcon imageIcon = new ImageIcon(new ImageIcon(SoftwareGui.class.getResource("/image/crewmate02.png")).getImage().getScaledInstance(70, 80, java.awt.Image.SCALE_SMOOTH));
 //			
 			JTextArea txtrIntro = new JTextArea();
 			txtrIntro.setBackground(Color.WHITE);
 			txtrIntro.setWrapStyleWord(true);
-			txtrIntro.setText("Join with us!\r\nConect to another crewmate!\r\nChat immediately!\r\nLike, show emotions!\r\n\r\nCome and have fun!!!");
+			txtrIntro.setText("Join with us!\n\r\nConect with friends!\n\r\nChat privately and in group!\r\n\r\nCome and have fun!!!");
 			txtrIntro.setTabSize(4);
 			txtrIntro.setRows(3);
 			txtrIntro.setLineWrap(true);
@@ -66,19 +71,20 @@ public class SoftwareGui extends JDialog {
 		panel.setBounds(0, 0, 222, 261);
 		contentPanel.add(panel);
 		
-		JLabel lblCrewmates = new JLabel("CREWMATEs <3");
+		JLabel lblCrewmates = new JLabel("FIT CHAT");
 		lblCrewmates.setBounds(55, 205, 120, 17);
 		lblCrewmates.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewmates.setFont(new Font("OCR A Extended", Font.PLAIN, 16));
 		
-		JLabel lblImage = new JLabel("New label");
+		JLabel lblImage = new JLabel("");
+		lblImage.setIcon(new ImageIcon(SoftwareGui.class.getResource("/icon/component/Server/Software/chat.png")));
 		lblImage.setBounds(0, 0, 234, 141);
 		//ImageIcon imageIcon = new ImageIcon(new ImageIcon(SoftwareGui.class.getResource("/image/crewmates-team.jpg")).getImage().getScaledInstance(241, 141, java.awt.Image.SCALE_SMOOTH));
 		//lblImage.setIcon(imageIcon);
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JLabel lblWeAre = new JLabel("We are..");
-		lblWeAre.setBounds(71, 177, 80, 17);
+		JLabel lblWeAre = new JLabel("Welcome to");
+		lblWeAre.setBounds(47, 176, 145, 17);
 		lblWeAre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWeAre.setFont(new Font("OCR A Extended", Font.PLAIN, 16));
 		panel.setLayout(null);
@@ -86,5 +92,4 @@ public class SoftwareGui extends JDialog {
 		panel.add(lblImage);
 		panel.add(lblWeAre);
 	}
-
 }
