@@ -2,6 +2,8 @@ package client;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+
 import javax.swing.GroupLayout.*;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.*;
@@ -54,14 +56,14 @@ public class LoginFrame extends JFrame {
 		
 		setDefaultLookAndFeelDecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 517, 343);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(230, 240, 247));
+		contentPane.setBackground(UIManager.getColor("InternalFrame.paletteBackground"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JPanel headerPanel = new JPanel();
-		headerPanel.setBackground(new Color(160,190,223));
+		headerPanel.setBackground(UIManager.getColor("InternalFrame.paletteBackground"));
 		
 		JLabel lbUsername = new JLabel("Username");
 		lbUsername.setFont(new Font("Arial", Font.BOLD, 14));
@@ -77,53 +79,73 @@ public class LoginFrame extends JFrame {
 		JPanel buttons = new JPanel();
 		buttons.setBackground(new Color(230, 240, 247));
 		JPanel notificationContainer = new JPanel();
-		notificationContainer.setBackground(new Color(230, 240, 247));
+		notificationContainer.setBackground(UIManager.getColor("InternalFrame.paletteBackground"));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/comments.png")));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(headerPanel, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(69)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lbPassword)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel)
 							.addGap(18)
-							.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lbUsername)
-							.addGap(18)
-							.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-					.addGap(81))
-				.addComponent(notificationContainer, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-				.addComponent(buttons, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lbUsername)
+										.addComponent(lbPassword))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtPassword)
+										.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
+								.addComponent(buttons, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGap(144)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(headerPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+								.addComponent(notificationContainer, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addGap(33)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lbUsername)
-						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbPassword))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(notificationContainer, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(buttons, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addGap(22))
+					.addComponent(notificationContainer, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbUsername))
+							.addGap(30)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbPassword))
+							.addGap(31)
+							.addComponent(buttons, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(49, Short.MAX_VALUE))
 		);
+		
+		JLabel headerContent = new JLabel("LOGIN");
+		headerPanel.add(headerContent);
+		headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
 		
 		JLabel notification = new JLabel("");
 		notification.setForeground(Color.RED);
 		notification.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		notificationContainer.add(notification);
 		
-		JButton login = new JButton("Log in");
-		JButton signup = new JButton("Sign up");
+		JButton login = new JButton("Sign in");
+		login.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/038-login.png")));
+		JButton signup = new JButton("Register");
+		signup.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/065-sign up.png")));
 		
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -173,7 +195,7 @@ public class LoginFrame extends JFrame {
 								public void run() {
 									try {
 										// In ra thÃ´ng bÃ¡o Ä‘Äƒng kÃ­ thÃ nh cÃ´ng
-										int confirm = JOptionPane.showConfirmDialog(null, "Sign up successful\nWelcome to MANGO CHAT", "Sign up successful", JOptionPane.DEFAULT_OPTION);
+										int confirm = JOptionPane.showConfirmDialog(null, "Sign up successful\nWelcome to FIT CHAT", "Sign up successful", JOptionPane.DEFAULT_OPTION);
 										 
 										ChatFrame frame = new ChatFrame(username, dis, dos);
 										frame.setVisible(true);
@@ -197,10 +219,6 @@ public class LoginFrame extends JFrame {
 		});
 		signup.setEnabled(false);
 		buttons.add(signup);
-		
-		JLabel headerContent = new JLabel("LOGIN");
-		headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
-		headerPanel.add(headerContent);
 		contentPane.setLayout(gl_contentPane);
 		
 		txtUsername.addKeyListener(new KeyAdapter() {
