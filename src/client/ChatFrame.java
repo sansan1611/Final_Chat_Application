@@ -349,7 +349,7 @@ public class ChatFrame extends JFrame {
         );
 		String test = "" + ChatFrame.class.getResource("/icon/emoji/orange.png");
 
-        JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/noun_send message_373671.png")));
+        JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/user.png")));
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(230, 240, 247));
