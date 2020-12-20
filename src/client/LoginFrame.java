@@ -52,7 +52,7 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
-		setTitle("MANGO CHAT");
+		setTitle("FIT CHAT");
 		
 		setDefaultLookAndFeelDecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,10 +66,10 @@ public class LoginFrame extends JFrame {
 		headerPanel.setBackground(UIManager.getColor("InternalFrame.paletteBackground"));
 		
 		JLabel lbUsername = new JLabel("Username");
-		lbUsername.setFont(new Font("Arial", Font.BOLD, 14));
+		lbUsername.setFont(new Font("Papyrus", Font.PLAIN, 14));
 		
 		JLabel lbPassword = new JLabel("Password");
-		lbPassword.setFont(new Font("Arial", Font.BOLD, 14));
+		lbPassword.setFont(new Font("Papyrus", Font.PLAIN, 14));
 		
 		txtUsername = new JTextField();
 		txtUsername.setColumns(10);
@@ -82,42 +82,38 @@ public class LoginFrame extends JFrame {
 		notificationContainer.setBackground(UIManager.getColor("InternalFrame.paletteBackground"));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/comments.png")));
+		lblNewLabel.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/hello.png")));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(18)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lbUsername)
-												.addComponent(lbPassword))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(txtPassword)
-												.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
-										.addComponent(buttons, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(notificationContainer, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))))
-						.addComponent(headerPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lbUsername)
+									.addComponent(lbPassword))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(txtPassword)
+									.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
+							.addComponent(buttons, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)
+							.addComponent(notificationContainer, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(30)
-					.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 262, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(headerPanel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(notificationContainer, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -128,14 +124,13 @@ public class LoginFrame extends JFrame {
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lbPassword))
 							.addGap(31)
-							.addComponent(buttons, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(49, Short.MAX_VALUE))
+							.addComponent(buttons, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		
 		JLabel headerContent = new JLabel("LOGIN");
 		headerPanel.add(headerContent);
-		headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
+		headerContent.setFont(new Font("Papyrus", Font.BOLD, 24));
 		
 		JLabel notification = new JLabel("");
 		notification.setForeground(Color.RED);
@@ -143,8 +138,10 @@ public class LoginFrame extends JFrame {
 		notificationContainer.add(notification);
 		
 		JButton login = new JButton("Sign in");
+		login.setFont(new Font("Papyrus", Font.PLAIN, 12));
 		login.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/038-login.png")));
 		JButton signup = new JButton("Register");
+		signup.setFont(new Font("Papyrus", Font.PLAIN, 12));
 		signup.setIcon(new ImageIcon(LoginFrame.class.getResource("/icon/component/Login/065-sign up.png")));
 		
 		login.addActionListener(new ActionListener() {
