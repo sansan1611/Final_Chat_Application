@@ -223,9 +223,6 @@ public class ChatFrame extends JFrame {
         contentPane.setBackground(new Color(245, 222, 179));
         setContentPane(contentPane);
 
-        JPanel header = new JPanel();
-        header.setBackground(new Color(250, 128, 114));
-
         txtMessage = new JTextField();
         txtMessage.setFont(new Font("Papyrus", Font.PLAIN, 13));
 //        txtMessage.setEnabled(false);
@@ -310,86 +307,110 @@ public class ChatFrame extends JFrame {
                     }
 
                 });
+        
+        JPanel leftPanel_1 = new JPanel();
+        leftPanel_1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(240, 248, 255)));
+        leftPanel_1.setBackground(new Color(250, 128, 114));
+        
+        JLabel userImage_1 = new JLabel((Icon) null);
+        
+                JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/santa-claus.png")));
+        
+                JPanel panel = new JPanel();
+                panel.setBackground(new Color(255, 239, 213));
+                
+                        JLabel lbUsername = new JLabel(this.username);
+                        lbUsername.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+                        panel.add(lbUsername);
+        GroupLayout gl_leftPanel_1 = new GroupLayout(leftPanel_1);
+        gl_leftPanel_1.setHorizontalGroup(
+        	gl_leftPanel_1.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_leftPanel_1.createSequentialGroup()
+        			.addContainerGap(413, Short.MAX_VALUE)
+        			.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(userImage_1)
+        				.addComponent(panel, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(userImage)
+        			.addContainerGap())
+        );
+        gl_leftPanel_1.setVerticalGroup(
+        	gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_leftPanel_1.createSequentialGroup()
+        			.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_leftPanel_1.createSequentialGroup()
+        					.addContainerGap()
+        					.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        						.addComponent(userImage)
+        						.addComponent(userImage_1)))
+        				.addGroup(gl_leftPanel_1.createSequentialGroup()
+        					.addGap(12)
+        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        leftPanel_1.setLayout(gl_leftPanel_1);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-        							.addComponent(btnSelectAll))
-        						.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
-        					.addGap(18)
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-        							.addContainerGap())
-        						.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)))
-        				.addComponent(header, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)))
+        					.addComponent(leftPanel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addGap(6))
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(btnSelectAll)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnSend)
+        					.addContainerGap())
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+        					.addContainerGap())))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_contentPane.createSequentialGroup()
-        			.addComponent(header, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(leftPanel_1, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-        				.addComponent(leftPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 336, GroupLayout.PREFERRED_SIZE))
-        			.addGap(11)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-        				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-        					.addComponent(txtMessage)
-        					.addComponent(btnSelectAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(chatPanel)
+        				.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+        				.addComponent(btnSelectAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
         			.addContainerGap())
         );
 		String test = "" + ChatFrame.class.getResource("/icon/emoji/orange.png");
-
-        JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/santa-claus.png")));
-
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(255, 239, 213));
         JLabel lblNewLabel_1 = new JLabel("Active Users");
         lblNewLabel_1.setFont(new Font("PT Serif Caption", Font.BOLD, 11));
 
         GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
         gl_leftPanel.setHorizontalGroup(
-        	gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        	gl_leftPanel.createParallelGroup(Alignment.TRAILING)
         		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addGap(25)
-        			.addComponent(userImage, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-        			.addGap(25))
-        		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(panel, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-        			.addContainerGap())
-        		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(onlineUsers, 0, 140, Short.MAX_VALUE)
-        			.addContainerGap())
-        		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addGap(33)
-        			.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(32, Short.MAX_VALUE))
+        			.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_leftPanel.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(gl_leftPanel.createSequentialGroup()
+        					.addGap(17)
+        					.addComponent(lblNewLabel_1)))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         gl_leftPanel.setVerticalGroup(
         	gl_leftPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addGap(5)
-        			.addComponent(userImage)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addGap(42)
+        			.addContainerGap()
         			.addComponent(lblNewLabel_1)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(141, Short.MAX_VALUE))
+        			.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(273, Short.MAX_VALUE))
         );
         onlineUsers.setBackground(new Color(245, 245, 220));
         onlineUsers.setFont(new Font("PT Sans Caption", Font.PLAIN, 11));
@@ -424,15 +445,7 @@ public class ChatFrame extends JFrame {
 
             }
         });
-
-        JLabel lbUsername = new JLabel(this.username);
-        lbUsername.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-        panel.add(lbUsername);
         leftPanel.setLayout(gl_leftPanel);
-
-        JLabel headerContent = new JLabel("CHAT");
-        headerContent.setFont(new Font("LiSong Pro", Font.BOLD, 24));
-        header.add(headerContent);
 
         JPanel usernamePanel = new JPanel();
         usernamePanel.setBackground(new Color(255, 250, 205));
