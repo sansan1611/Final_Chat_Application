@@ -208,7 +208,7 @@ public class ChatFrame extends JFrame {
      * Create the frame.
      */
     public ChatFrame(String username, DataInputStream dis, DataOutputStream dos) {
-        setTitle("DISCUSSION ");
+        setTitle("FIT CHAT");
         this.username = username;
         this.dis = dis;
         this.dos = dos;
@@ -217,35 +217,38 @@ public class ChatFrame extends JFrame {
 
         setDefaultLookAndFeelDecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 586, 450);
+        setBounds(100, 100, 620, 491);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setBackground(new Color(255, 250, 250));
+        contentPane.setBackground(new Color(245, 222, 179));
         setContentPane(contentPane);
 
         JPanel header = new JPanel();
-        header.setBackground(new Color(230, 230, 250));
+        header.setBackground(new Color(250, 128, 114));
 
         txtMessage = new JTextField();
-        txtMessage.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
+        txtMessage.setFont(new Font("Papyrus", Font.PLAIN, 13));
 //        txtMessage.setEnabled(false);
         txtMessage.setColumns(10);
 
         btnSend = new JButton("");
-        btnSend.setBackground(new Color(0, 0, 0));
-        btnSend.setForeground(new Color(245, 222, 179));
+        btnSend.setToolTipText("Send to this one");
+        btnSend.setBackground(new Color(255, 222, 173));
+        btnSend.setForeground(new Color(255, 228, 181));
         btnSend.setEnabled(false);
 //        btnSend.setVisible(true);
-        btnSend.setIcon(new ImageIcon(ChatFrame.class.getResource("/icon/component/send.png")));
+        btnSend.setIcon(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/paper-plane.png")));
 
         chatPanel = new JScrollPane();
         chatPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         JPanel leftPanel = new JPanel();
         leftPanel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(240, 248, 255)));
-        leftPanel.setBackground(new Color(230, 230, 250));
+        leftPanel.setBackground(new Color(250, 128, 114));
         
-                btnSelectAll = new JButton("Select All");
+                btnSelectAll = new JButton("");
+                btnSelectAll.setIcon(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/024-discussion.png")));
+                btnSelectAll.setToolTipText("Send message to all ");
                 btnSelectAll.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
                 btnSelectAll.addActionListener(new ActionListener() {
                     @Override
@@ -314,67 +317,66 @@ public class ChatFrame extends JFrame {
         			.addContainerGap()
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        						.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
         						.addGroup(gl_contentPane.createSequentialGroup()
-        							.addGap(21)
-        							.addComponent(btnSelectAll)))
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-        							.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-        							.addGap(18)
-        							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-        							.addGap(6))
-        						.addComponent(chatPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)))
-        				.addComponent(header, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)))
+        							.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+        							.addComponent(btnSelectAll))
+        						.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+        					.addGap(18)
+        					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(gl_contentPane.createSequentialGroup()
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+        							.addContainerGap())
+        						.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)))
+        				.addComponent(header, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addComponent(header, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-        					.addGap(11))
-        				.addGroup(gl_contentPane.createSequentialGroup()
-        					.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-        					.addPreferredGap(ComponentPlacement.RELATED)))
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-        				.addComponent(txtMessage, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-        				.addComponent(btnSend, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-        				.addComponent(btnSelectAll))
+        				.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+        				.addComponent(leftPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 336, GroupLayout.PREFERRED_SIZE))
+        			.addGap(11)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+        					.addComponent(txtMessage)
+        					.addComponent(btnSelectAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         			.addContainerGap())
         );
 		String test = "" + ChatFrame.class.getResource("/icon/emoji/orange.png");
 
-        JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/user.png")));
+        JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/santa-claus.png")));
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(230, 240, 247));
-        JLabel lblNewLabel_1 = new JLabel("CHOOSE PARTNER ");
-        lblNewLabel_1.setFont(new Font("OCR A Extended", Font.BOLD, 11));
+        panel.setBackground(new Color(255, 239, 213));
+        JLabel lblNewLabel_1 = new JLabel("Active Users");
+        lblNewLabel_1.setFont(new Font("PT Serif Caption", Font.BOLD, 11));
 
         GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
         gl_leftPanel.setHorizontalGroup(
-        	gl_leftPanel.createParallelGroup(Alignment.TRAILING)
+        	gl_leftPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_leftPanel.createSequentialGroup()
         			.addGap(25)
-        			.addComponent(userImage, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        			.addComponent(userImage, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
         			.addGap(25))
         		.addGroup(gl_leftPanel.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(panel, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+        			.addComponent(panel, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         			.addContainerGap())
         		.addGroup(gl_leftPanel.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+        			.addComponent(onlineUsers, 0, 140, Short.MAX_VALUE)
         			.addContainerGap())
-        		.addGroup(Alignment.LEADING, gl_leftPanel.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(onlineUsers, 0, 180, Short.MAX_VALUE)
-        			.addContainerGap())
+        		.addGroup(gl_leftPanel.createSequentialGroup()
+        			.addGap(33)
+        			.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(32, Short.MAX_VALUE))
         );
         gl_leftPanel.setVerticalGroup(
         	gl_leftPanel.createParallelGroup(Alignment.LEADING)
@@ -383,13 +385,14 @@ public class ChatFrame extends JFrame {
         			.addComponent(userImage)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addGap(36)
+        			.addGap(42)
         			.addComponent(lblNewLabel_1)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(145, Short.MAX_VALUE))
+        			.addContainerGap(141, Short.MAX_VALUE))
         );
-        onlineUsers.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
+        onlineUsers.setBackground(new Color(245, 245, 220));
+        onlineUsers.setFont(new Font("PT Sans Caption", Font.PLAIN, 11));
         onlineUsers.addItemListener(new ItemListener() {
 //            need to change at here
             public void itemStateChanged(ItemEvent e) {
@@ -427,12 +430,12 @@ public class ChatFrame extends JFrame {
         panel.add(lbUsername);
         leftPanel.setLayout(gl_leftPanel);
 
-        JLabel headerContent = new JLabel("CONVERSATION BOX");
-        headerContent.setFont(new Font("OCR A Extended", Font.BOLD, 24));
+        JLabel headerContent = new JLabel("CHAT");
+        headerContent.setFont(new Font("LiSong Pro", Font.BOLD, 24));
         header.add(headerContent);
 
         JPanel usernamePanel = new JPanel();
-        usernamePanel.setBackground(new Color(230, 240, 247));
+        usernamePanel.setBackground(new Color(255, 250, 205));
         chatPanel.setColumnHeaderView(usernamePanel);
 
         lbReceiver.setFont(new Font("Arial", Font.BOLD, 16));
