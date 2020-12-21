@@ -326,7 +326,7 @@ public class ChatFrame extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Active Users");
 		lblNewLabel_1.setBounds(19, 13, 70, 15);
 		lblNewLabel_1.setFont(new Font("PT Serif Caption", Font.BOLD, 11));
-		onlineUsers.setBounds(12, 34, 100, 21);
+		onlineUsers.setBounds(6, 40, 100, 21);
 		onlineUsers.setBackground(new Color(245, 245, 220));
 		onlineUsers.setFont(new Font("PT Sans Caption", Font.PLAIN, 11));
 		onlineUsers.addItemListener(new ItemListener() {
