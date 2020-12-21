@@ -11,12 +11,6 @@ import java.io.*;
 import java.net.Socket;
 import java.awt.*;
 
-/**
- * view
- * @Created by DELL - StudentID: 18120652
- * @Date Jul 16, 2020 - 8:54:34 PM 
- * @Description ...
- */
 public class LoginFrame extends JFrame {
 	
 	private JPanel contentPane;
@@ -31,10 +25,7 @@ public class LoginFrame extends JFrame {
 	private DataOutputStream dos;
 	
 	private String username;
-	
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,9 +39,7 @@ public class LoginFrame extends JFrame {
 		});
 	}
 	
-	/**
-	 * Create the frame.
-	 */
+
 	public LoginFrame() {
 		setTitle("FIT CHAT");
 		
@@ -148,7 +137,6 @@ public class LoginFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String response = Login(txtUsername.getText(), String.copyValueOf(txtPassword.getPassword()));
 				
-				// Ä‘Äƒng nháº­p thÃ nh cÃ´ng thÃ¬ server sáº½ tráº£ vá»�  chuá»—i "Log in successful"
 				if ( response.equals("Log in successful") ) {
 					username = txtUsername.getText();
 					EventQueue.invokeLater(new Runnable() {
@@ -178,20 +166,17 @@ public class LoginFrame extends JFrame {
 				
 				JPasswordField confirm = new JPasswordField();
 				
-				// Hiá»ƒn thá»‹ há»™p thoáº¡i xÃ¡c nháº­n password
 				
 			    int action = JOptionPane.showConfirmDialog(null, confirm,"Comfirm your password",JOptionPane.OK_CANCEL_OPTION);
 			    if (action == JOptionPane.OK_OPTION) {
 			    	if (String.copyValueOf(confirm.getPassword()).equals(String.copyValueOf(txtPassword.getPassword()))) {
 			    		String response = Signup(txtUsername.getText(), String.copyValueOf(txtPassword.getPassword()));
 					
-			    		// Ä‘Äƒng kÃ½ thÃ nh cÃ´ng thÃ¬ server sáº½ tráº£ vá»�  chuá»—i "Log in successful"
 						if ( response.equals("Sign up successful") ) {
 							username = txtUsername.getText();
 							EventQueue.invokeLater(new Runnable() {
 								public void run() {
 									try {
-										// In ra thÃ´ng bÃ¡o Ä‘Äƒng kÃ­ thÃ nh cÃ´ng
 										int confirm = JOptionPane.showConfirmDialog(null, "Sign up successful\nWelcome to FIT CHAT", "Sign up successful", JOptionPane.DEFAULT_OPTION);
 										 
 										ChatFrame frame = new ChatFrame(username, dis, dos);
@@ -247,10 +232,7 @@ public class LoginFrame extends JFrame {
 		this.getRootPane().setDefaultButton(login);
 	}
 	
-	/**
-	 * Gá»­i yÃªu cáº§u Ä‘Äƒng nháº­p Ä‘áº¿n server
-	 * Tráº£ vá»� káº¿t quáº£ pháº£n há»“i tá»« server
-	 */
+
 	public String Login(String username, String password) {
 		try {
 			Connect();
@@ -269,10 +251,7 @@ public class LoginFrame extends JFrame {
 		}
 	}
 	
-	/**
-	 * Gá»­i yÃªu cáº§u Ä‘Äƒng kÃ½ Ä‘áº¿n server
-	 * Tráº£ vá»� káº¿t quáº£ pháº£n há»“i tá»« server
-	 */
+
 	public String Signup(String username, String password) {
 		try {
 			Connect();
@@ -291,9 +270,7 @@ public class LoginFrame extends JFrame {
 		}
 	}
 	
-	/**
-	 * Káº¿t ná»‘i Ä‘áº¿n server
-	 */
+
 	public void Connect() {
 		try {
 			if (socket != null) {
