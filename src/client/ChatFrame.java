@@ -13,6 +13,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.*;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 
 /**
@@ -87,7 +90,7 @@ public class ChatFrame extends JFrame {
             StyleConstants.setForeground(userStyle, Color.BLUE);
         }
 
-        // In ra màn hình tên người gửi
+        // In ra mÃ n hÃ¬nh tÃªn ngÆ°á»�i gá»­i
         try {
             doc.insertString(doc.getLength(), username + ": ", userStyle);
         } catch (BadLocationException e) {
@@ -100,13 +103,13 @@ public class ChatFrame extends JFrame {
         String emojiPath = emoji.substring(emoji.lastIndexOf("/icon"));
         StyleConstants.setIcon(iconStyle, new ImageIcon(getClass().getResource(emojiPath)));
 
-        // In ra màn hình Emoji
+        // In ra mÃ n hÃ¬nh Emoji
         try {
             doc.insertString(doc.getLength(), "invisible text", iconStyle);
         } catch (BadLocationException e) {
         }
 
-        // Xuống dòng
+        // Xuá»‘ng dÃ²ng
         try {
             doc.insertString(doc.getLength(), "\n", userStyle);
         } catch (BadLocationException e) {
@@ -141,7 +144,7 @@ public class ChatFrame extends JFrame {
             StyleConstants.setForeground(userStyle, Color.BLUE);
         }
 
-        // In ra tên người gửi
+        // In ra tÃªn ngÆ°á»�i gá»­i
         try {
             doc.insertString(doc.getLength(), username + ": ", userStyle);
         } catch (BadLocationException e) {
@@ -154,7 +157,7 @@ public class ChatFrame extends JFrame {
             StyleConstants.setBold(messageStyle, false);
         }
 
-        // In ra nội dung tin nhắn
+        // In ra ná»™i dung tin nháº¯n
         try {
             doc.insertString(doc.getLength(), message + "\n", messageStyle);
         } catch (BadLocationException e) {
@@ -205,7 +208,7 @@ public class ChatFrame extends JFrame {
      * Create the frame.
      */
     public ChatFrame(String username, DataInputStream dis, DataOutputStream dos) {
-        setTitle("MANGO CHAT");
+        setTitle("FIT CHAT");
         this.username = username;
         this.dis = dis;
         this.dos = dos;
@@ -214,244 +217,203 @@ public class ChatFrame extends JFrame {
 
         setDefaultLookAndFeelDecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 586, 450);
+        setBounds(100, 100, 620, 491);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setBackground(new Color(230, 240, 247));
+        contentPane.setBackground(new Color(245, 222, 179));
         setContentPane(contentPane);
 
-        JPanel header = new JPanel();
-        header.setBackground(new Color(160, 190, 223));
-
         txtMessage = new JTextField();
+        txtMessage.setFont(new Font("Papyrus", Font.PLAIN, 13));
 //        txtMessage.setEnabled(false);
         txtMessage.setColumns(10);
 
         btnSend = new JButton("");
+        btnSend.setToolTipText("Send to this one");
+        btnSend.setBackground(new Color(255, 222, 173));
+        btnSend.setForeground(new Color(255, 228, 181));
         btnSend.setEnabled(false);
 //        btnSend.setVisible(true);
-        btnSend.setIcon(new ImageIcon(getClass().getResource("/icon/component/send.png")));
+        btnSend.setIcon(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/paper-plane.png")));
 
         chatPanel = new JScrollPane();
         chatPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(230, 240, 247));
+        leftPanel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(240, 248, 255)));
+        leftPanel.setBackground(new Color(250, 128, 114));
+        
+                btnSelectAll = new JButton("");
+                btnSelectAll.setIcon(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/024-discussion.png")));
+                btnSelectAll.setToolTipText("Send message to all ");
+                btnSelectAll.setFont(new Font("OCR A Extended", Font.PLAIN, 11));
+                btnSelectAll.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (txtMessage.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "You need to text something!");
+                        } else {
 
-        JPanel emojis = new JPanel();
-        emojis.setBackground(new Color(230, 240, 247));
+                            lbReceiver.setText((String) onlineUsers.getSelectedItem());
+                            int size = onlineUsers.getItemCount();
+                            for (int i = 0; i < size; i++) {
+                                String member = onlineUsers.getItemAt(i);
+                                try {
+                                    dos.writeUTF("Text");
+                                    dos.writeUTF(member);
+                                    dos.writeUTF("@" + txtMessage.getText());
+                                    dos.flush();
+                                } catch (IOException e1) {
+                                    e1.printStackTrace();
+                                    newMessage("ERROR", "Network error!", true);
+                                }
+
+                                // In ra tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i nháº­n
+//                        groupMessage(username, txtMessage.getText(), true);
+                            }
+
+                            if (chatWindows.get(" ") != null) {
+                                lbReceiver.setText(" ");
+                                groupMessage(username, txtMessage.getText(), true);
+                                Style messageStyle = messageDoc.getStyle("Message style");
+                                try {
+                                    // In ra tÃªn ngÆ°á»�i gá»­i
+                                    messageDoc.insertString(messageDoc.getLength(), username + ": ", userStyleSend);
+                                    messageDoc.insertString(messageDoc.getLength(), txtMessage.getText() + "\n", messageStyle);
+                                    txtMessage.setText("");
+                                } catch (BadLocationException ex) {
+                                    Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            } else {
+                                JTextPane temp = new JTextPane();
+                                temp.setFont(new Font("Arial", Font.PLAIN, 14));
+                                temp.setEditable(false);
+                                chatWindows.put(" ", temp);
+                                lbReceiver.setText(" ");
+                                // In tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i gá»­i
+                                groupMessage(username, txtMessage.getText(), true);
+                                Style messageStyle = messageDoc.getStyle("Message style");
+                                try {
+                                    // In ra tÃªn ngÆ°á»�i gá»­i
+                                    messageDoc.insertString(messageDoc.getLength(), username + ": ", userStyleSend);
+                                    messageDoc.insertString(messageDoc.getLength(), txtMessage.getText() + "\n", messageStyle);
+                                    txtMessage.setText("");
+                                } catch (BadLocationException ex) {
+                                    Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+
+                        }
+                    }
+
+                });
+        
+        JPanel leftPanel_1 = new JPanel();
+        leftPanel_1.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(240, 248, 255)));
+        leftPanel_1.setBackground(new Color(250, 128, 114));
+        
+        JLabel userImage_1 = new JLabel((Icon) null);
+        
+                JLabel userImage = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/component/ChatFrame/santa-claus.png")));
+        
+                JPanel panel = new JPanel();
+                panel.setBackground(new Color(255, 239, 213));
+                
+                        JLabel lbUsername = new JLabel(this.username);
+                        lbUsername.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+                        panel.add(lbUsername);
+        GroupLayout gl_leftPanel_1 = new GroupLayout(leftPanel_1);
+        gl_leftPanel_1.setHorizontalGroup(
+        	gl_leftPanel_1.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_leftPanel_1.createSequentialGroup()
+        			.addContainerGap(413, Short.MAX_VALUE)
+        			.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(userImage_1)
+        				.addComponent(panel, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(userImage)
+        			.addContainerGap())
+        );
+        gl_leftPanel_1.setVerticalGroup(
+        	gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_leftPanel_1.createSequentialGroup()
+        			.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_leftPanel_1.createSequentialGroup()
+        					.addContainerGap()
+        					.addGroup(gl_leftPanel_1.createParallelGroup(Alignment.LEADING)
+        						.addComponent(userImage)
+        						.addComponent(userImage_1)))
+        				.addGroup(gl_leftPanel_1.createSequentialGroup()
+        					.addGap(12)
+        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        leftPanel_1.setLayout(gl_leftPanel_1);
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addComponent(header, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(emojis, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(ComponentPlacement.RELATED))
-                                        .addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)))
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(leftPanel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addGap(6))
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(btnSelectAll)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(btnSend)
+        					.addContainerGap())
+        				.addGroup(gl_contentPane.createSequentialGroup()
+        					.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+        					.addContainerGap())))
         );
         gl_contentPane.setVerticalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(header, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addComponent(chatPanel, GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(emojis, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                                        .addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(txtMessage, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)))
+        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addComponent(leftPanel_1, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+        				.addComponent(chatPanel)
+        				.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(txtMessage, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+        				.addComponent(btnSelectAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnSend, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+        			.addContainerGap())
         );
-
-        JLabel smileIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/smile.png")));
-		smileIcon.addMouseListener(new IconListener(smileIcon.getIcon().toString()));
-		emojis.add(smileIcon);
-		
-		
-		JLabel bigSmileIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/big-smile.png")));
-		bigSmileIcon.addMouseListener(new IconListener(bigSmileIcon.getIcon().toString()));
-		emojis.add(bigSmileIcon);
-		
-		JLabel happyIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/happy.png")));
-		happyIcon.addMouseListener(new IconListener(happyIcon.getIcon().toString()));
-		emojis.add(happyIcon);
-		
-		JLabel loveIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/love.png")));
-		loveIcon.addMouseListener(new IconListener(loveIcon.getIcon().toString()));
-		emojis.add(loveIcon);
-		
-		JLabel sadIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/sad.png")));
-		sadIcon.addMouseListener(new IconListener(sadIcon.getIcon().toString()));
-		emojis.add(sadIcon);
-		
-		JLabel madIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/mad.png")));
-		madIcon.addMouseListener(new IconListener(madIcon.getIcon().toString()));
-		emojis.add(madIcon);
-		
-		JLabel suspiciousIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/suspicious.png")));
-		suspiciousIcon.addMouseListener(new IconListener(suspiciousIcon.getIcon().toString()));
-		emojis.add(suspiciousIcon);
-		
-		JLabel angryIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/angry.png")));
-		angryIcon.addMouseListener(new IconListener(angryIcon.getIcon().toString()));
-		emojis.add(angryIcon);
-		
-		JLabel confusedIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/confused.png")));
-		confusedIcon.addMouseListener(new IconListener(confusedIcon.getIcon().toString()));
-		emojis.add(confusedIcon);
-		
-		JLabel unhappyIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/unhappy.png")));
-		unhappyIcon.addMouseListener(new IconListener(unhappyIcon.getIcon().toString()));
-		emojis.add(unhappyIcon);
-		
-		JLabel appleIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/apple.png")));
-		appleIcon.addMouseListener(new IconListener(appleIcon.getIcon().toString()));
-		emojis.add(appleIcon);
-		
-		JLabel orangeIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/orange.png")));
 		String test = "" + ChatFrame.class.getResource("/icon/emoji/orange.png");
-		orangeIcon.addMouseListener(new IconListener(test));
-		emojis.add(orangeIcon);
-		
-		JLabel cherryIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/cherry.png")));
-		cherryIcon.addMouseListener(new IconListener(cherryIcon.getIcon().toString()));
-		emojis.add(cherryIcon);
-		
-		JLabel cakeIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/cake.png")));
-		cakeIcon.addMouseListener(new IconListener(cakeIcon.getIcon().toString()));
-		emojis.add(cakeIcon);
-		
-		JLabel vietnamIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/vietnam.png")));
-		vietnamIcon.addMouseListener(new IconListener(vietnamIcon.getIcon().toString()));
-		emojis.add(vietnamIcon);
-		
-		JLabel usIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/us.png")));
-		usIcon.addMouseListener(new IconListener(usIcon.getIcon().toString()));
-		emojis.add(usIcon);
-		
-		JLabel ukIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/uk.png")));
-		ukIcon.addMouseListener(new IconListener(ukIcon.getIcon().toString()));
-		emojis.add(ukIcon);
-		
-		JLabel canadaIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/canada.png")));
-		canadaIcon.addMouseListener(new IconListener(canadaIcon.getIcon().toString()));
-		emojis.add(canadaIcon);
-		
-		JLabel italyIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/italy.png")));
-		italyIcon.addMouseListener(new IconListener(italyIcon.getIcon().toString()));
-		emojis.add(italyIcon);
-		
-		JLabel spainIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/spain.png")));
-		spainIcon.addMouseListener(new IconListener(spainIcon.getIcon().toString()));
-		emojis.add(spainIcon);
-		
-		JLabel egyptIcon = new JLabel(new ImageIcon(ChatFrame.class.getResource("/icon/emoji/egypt.png")));
-		egyptIcon.addMouseListener(new IconListener(egyptIcon.getIcon().toString()));
-		emojis.add(egyptIcon);
-
-        JLabel userImage = new JLabel(new ImageIcon(getClass().getResource("/icon/component/user.png")));
-
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(230, 240, 247));
-        JLabel lblNewLabel_1 = new JLabel("CHAT WITH");
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-
-        btnSelectAll = new JButton("Select All");
-        btnSelectAll.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (txtMessage.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "You need to text something!");
-                } else {
-
-                    lbReceiver.setText((String) onlineUsers.getSelectedItem());
-                    int size = onlineUsers.getItemCount();
-                    for (int i = 0; i < size; i++) {
-                        String member = onlineUsers.getItemAt(i);
-                        try {
-                            dos.writeUTF("Text");
-                            dos.writeUTF(member);
-                            dos.writeUTF("@" + txtMessage.getText());
-                            dos.flush();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                            newMessage("ERROR", "Network error!", true);
-                        }
-
-                        // In ra tin nhắn lên màn hình chat với người nhận
-//                        groupMessage(username, txtMessage.getText(), true);
-                    }
-
-                    if (chatWindows.get(" ") != null) {
-                        lbReceiver.setText(" ");
-                        groupMessage(username, txtMessage.getText(), true);
-                        Style messageStyle = messageDoc.getStyle("Message style");
-                        try {
-                            // In ra tên người gửi
-                            messageDoc.insertString(messageDoc.getLength(), username + ": ", userStyleSend);
-                            messageDoc.insertString(messageDoc.getLength(), txtMessage.getText() + "\n", messageStyle);
-                            txtMessage.setText("");
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-                        JTextPane temp = new JTextPane();
-                        temp.setFont(new Font("Arial", Font.PLAIN, 14));
-                        temp.setEditable(false);
-                        chatWindows.put(" ", temp);
-                        lbReceiver.setText(" ");
-                        // In tin nhắn lên màn hình chat với người gửi
-                        groupMessage(username, txtMessage.getText(), true);
-                        Style messageStyle = messageDoc.getStyle("Message style");
-                        try {
-                            // In ra tên người gửi
-                            messageDoc.insertString(messageDoc.getLength(), username + ": ", userStyleSend);
-                            messageDoc.insertString(messageDoc.getLength(), txtMessage.getText() + "\n", messageStyle);
-                            txtMessage.setText("");
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(ChatFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-
-                }
-            }
-
-        });
+        JLabel lblNewLabel_1 = new JLabel("Active Users");
+        lblNewLabel_1.setFont(new Font("PT Serif Caption", Font.BOLD, 11));
 
         GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
         gl_leftPanel.setHorizontalGroup(
-                gl_leftPanel.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_leftPanel.createSequentialGroup()
-                                .addGap(25)
-                                .addComponent(userImage, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addGap(25))
-                        .addGroup(gl_leftPanel.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panel, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addGroup(gl_leftPanel.createSequentialGroup()
-                                .addGap(28)
-                                .addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(29))
-                        .addGroup(Alignment.TRAILING, gl_leftPanel.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(onlineUsers, 0, 101, Short.MAX_VALUE)
-                                .addContainerGap())
-                        .addGroup(Alignment.LEADING, gl_leftPanel.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnSelectAll)
-                                .addContainerGap(22, Short.MAX_VALUE))
+        	gl_leftPanel.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_leftPanel.createSequentialGroup()
+        			.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_leftPanel.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(gl_leftPanel.createSequentialGroup()
+        					.addGap(17)
+        					.addComponent(lblNewLabel_1)))
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        gl_leftPanel.setVerticalGroup(
+        	gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_leftPanel.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(lblNewLabel_1)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(273, Short.MAX_VALUE))
+        );
+        onlineUsers.setBackground(new Color(245, 245, 220));
+        onlineUsers.setFont(new Font("PT Sans Caption", Font.PLAIN, 11));
         onlineUsers.addItemListener(new ItemListener() {
 //            need to change at here
             public void itemStateChanged(ItemEvent e) {
@@ -483,34 +445,10 @@ public class ChatFrame extends JFrame {
 
             }
         });
-
-        gl_leftPanel.setVerticalGroup(
-                gl_leftPanel.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_leftPanel.createSequentialGroup()
-                                .addGap(5)
-                                .addComponent(userImage)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(panel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-                                .addGap(41)
-                                .addComponent(lblNewLabel_1)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(onlineUsers, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18)
-                                .addComponent(btnSelectAll)
-                                .addContainerGap(181, Short.MAX_VALUE))
-        );
-
-        JLabel lbUsername = new JLabel(this.username);
-        lbUsername.setFont(new Font("Arial", Font.BOLD, 15));
-        panel.add(lbUsername);
         leftPanel.setLayout(gl_leftPanel);
 
-        JLabel headerContent = new JLabel("MANGO CHAT");
-        headerContent.setFont(new Font("Poor Richard", Font.BOLD, 24));
-        header.add(headerContent);
-
         JPanel usernamePanel = new JPanel();
-        usernamePanel.setBackground(new Color(230, 240, 247));
+        usernamePanel.setBackground(new Color(255, 250, 205));
         chatPanel.setColumnHeaderView(usernamePanel);
 
         lbReceiver.setFont(new Font("Arial", Font.BOLD, 16));
@@ -549,7 +487,7 @@ public class ChatFrame extends JFrame {
                     newMessage("ERROR", "Network error!", true);
                 }
 
-                // In ra tin nhắn lên màn hình chat với người nhận
+                // In ra tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i nháº­n
                 newMessage(username, txtMessage.getText(), true);
                 txtMessage.setText("");
             }
@@ -585,7 +523,7 @@ public class ChatFrame extends JFrame {
     }
 
     /**
-     * Luồng nhận tin nhắn từ server của mỗi client
+     * Luá»“ng nháº­n tin nháº¯n tá»« server cá»§a má»—i client
      */
     class Receiver implements Runnable {
 
@@ -600,11 +538,11 @@ public class ChatFrame extends JFrame {
             try {
 
                 while (true) {
-                    // Chờ tin nhắn từ server
+                    // Chá»� tin nháº¯n tá»« server
                     String method = dis.readUTF();
 
                     if (method.equals("Text")) {
-                        // Nhận một tin nhắn văn bản
+                        // Nháº­n má»™t tin nháº¯n vÄƒn báº£n
                         String sender = dis.readUTF();
                         String message = dis.readUTF();
 
@@ -614,7 +552,7 @@ public class ChatFrame extends JFrame {
                                 groupMessage(lbReceiver.getText(), message.substring(1), false);
                                 Style messageStyle = messageDoc.getStyle("Message style");
                                 try {
-                                    // In ra tên người gửi
+                                    // In ra tÃªn ngÆ°á»�i gá»­i
                                     messageDoc.insertString(messageDoc.getLength(), sender + ": ", userStyleSend);
                                     messageDoc.insertString(messageDoc.getLength(), message.substring(1) + "\n", messageStyle);
                                     txtMessage.setText("");
@@ -627,11 +565,11 @@ public class ChatFrame extends JFrame {
                                 temp.setEditable(false);
                                 chatWindows.put(" ", temp);
                                 lbReceiver.setText(" ");
-                                // In tin nhắn lên màn hình chat với người gửi
+                                // In tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i gá»­i
                                 groupMessage(lbReceiver.getText(), message.substring(1), false);
                                 Style messageStyle = messageDoc.getStyle("Message style");
                                 try {
-                                    // In ra tên người gửi
+                                    // In ra tÃªn ngÆ°á»�i gá»­i
                                     messageDoc.insertString(messageDoc.getLength(), sender + ": ", userStyleSend);
                                     messageDoc.insertString(messageDoc.getLength(), message.substring(1) + "\n", messageStyle);
                                     txtMessage.setText("");
@@ -641,18 +579,18 @@ public class ChatFrame extends JFrame {
                             }
 
                         } else {
-                            // In tin nhắn lên màn hình chat với người gửi
+                            // In tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i gá»­i
                             newMessage(sender, message, false);
                         }
                     } else if (method.equals("Emoji")) {
-                        // Nhận một tin nhắn Emoji
+                        // Nháº­n má»™t tin nháº¯n Emoji
                         String sender = dis.readUTF();
                         String emoji = dis.readUTF();
 
-                        // In tin nhắn lên màn hình chat với người gửi
+                        // In tin nháº¯n lÃªn mÃ n hÃ¬nh chat vá»›i ngÆ°á»�i gá»­i
                         newEmoji(sender, emoji, false);
                     } else if (method.equals("Online users")) {
-                        // Nhận yêu cầu cập nhật danh sách người dùng trực tuyến
+                        // Nháº­n yÃªu cáº§u cáº­p nháº­t danh sÃ¡ch ngÆ°á»�i dÃ¹ng trá»±c tuyáº¿n
                         String[] users = dis.readUTF().split(",");
                         onlineUsers.removeAllItems();
 
@@ -663,7 +601,7 @@ public class ChatFrame extends JFrame {
                         for (String user : users) {
 //                            group.add(user);
                             if (user.equals(username) == false) {
-                                // Cập nhật danh sách các người dùng trực tuyến vào ComboBox onlineUsers (trừ bản thân)
+                                // Cáº­p nháº­t danh sÃ¡ch cÃ¡c ngÆ°á»�i dÃ¹ng trá»±c tuyáº¿n vÃ o ComboBox onlineUsers (trá»« báº£n thÃ¢n)
                                 onlineUsers.addItem(user);
                                 if (chatWindows.get(user) == null) {
                                     JTextPane temp = new JTextPane();
@@ -681,7 +619,7 @@ public class ChatFrame extends JFrame {
                         }
 
                         if (isChattingOnline == false) {
-                            // Nếu người đang chat không online thì chuyển hướng về màn hình mặc định và thông báo cho người dùng
+                            // Náº¿u ngÆ°á»�i Ä‘ang chat khÃ´ng online thÃ¬ chuyá»ƒn hÆ°á»›ng vá»� mÃ n hÃ¬nh máº·c Ä‘á»‹nh vÃ  thÃ´ng bÃ¡o cho ngÆ°á»�i dÃ¹ng
                             onlineUsers.setSelectedItem(" ");
                             JOptionPane.showMessageDialog(null, chatting + " is offline!\nYou will be redirect to default chat window");
                         } else {
@@ -690,7 +628,7 @@ public class ChatFrame extends JFrame {
 
                         onlineUsers.validate();
                     } else if (method.equals("Safe to leave")) {
-                        // Thông báo có thể thoát
+                        // ThÃ´ng bÃ¡o cÃ³ thá»ƒ thoÃ¡t
                         break;
                     }
 
@@ -711,7 +649,7 @@ public class ChatFrame extends JFrame {
     }
 
     /**
-     * MouseListener cho các đường dẫn tải file.
+     * MouseListener cho cÃ¡c Ä‘Æ°á»�ng dáº«n táº£i file.
      */
     class HyberlinkListener extends AbstractAction {
 
@@ -734,7 +672,7 @@ public class ChatFrame extends JFrame {
             int rVal = fileChooser.showSaveDialog(contentPane.getParent());
             if (rVal == JFileChooser.APPROVE_OPTION) {
 
-                // Mở file đã chọn sau đó lưu thông tin xuống file đó
+                // Má»Ÿ file Ä‘Ã£ chá»�n sau Ä‘Ã³ lÆ°u thÃ´ng tin xuá»‘ng file Ä‘Ã³
                 File saveFile = fileChooser.getSelectedFile();
                 BufferedOutputStream bos = null;
                 try {
@@ -743,7 +681,7 @@ public class ChatFrame extends JFrame {
                     e.printStackTrace();
                 }
 
-                // Hiển thị JOptionPane cho người dùng có muốn mở file vừa tải về không
+                // Hiá»ƒn thá»‹ JOptionPane cho ngÆ°á»�i dÃ¹ng cÃ³ muá»‘n má»Ÿ file vá»«a táº£i vá»� khÃ´ng
                 int nextAction = JOptionPane.showConfirmDialog(null, "Saved file to " + saveFile.getAbsolutePath() + "\nDo you want to open this file?", "Successful", JOptionPane.YES_NO_OPTION);
                 if (nextAction == JOptionPane.YES_OPTION) {
                     try {
@@ -761,37 +699,6 @@ public class ChatFrame extends JFrame {
                         e.printStackTrace();
                     }
                 }
-            }
-        }
-    }
-
-    /**
-     * MouseAdapter cho các Emoji.
-     */
-    class IconListener extends MouseAdapter {
-
-        String emoji;
-
-        public IconListener(String emoji) {
-            this.emoji = emoji;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (txtMessage.isEnabled() == true) {
-
-                try {
-                    dos.writeUTF("Emoji");
-                    dos.writeUTF(lbReceiver.getText());
-                    dos.writeUTF(this.emoji);
-                    dos.flush();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    newMessage("ERROR", "Network error!", true);
-                }
-
-                // In Emoji lên màn hình chat với người nhận
-                newEmoji(username, this.emoji, true);
             }
         }
     }
