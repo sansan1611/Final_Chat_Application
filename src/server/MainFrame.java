@@ -20,6 +20,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 
+/**
+ * 
+ * @Created by DELL - StudentID: 18120652
+ * @Date Jul 16, 2020 - 9:34:38 PM 
+ * @Description ...
+ */
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
